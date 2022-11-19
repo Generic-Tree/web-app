@@ -15,11 +15,15 @@ GNUMAKEFLAGS += --no-print-directory
 
 # Path record
 ROOT_DIR ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+SOURCE_DIR ?= $(ROOT_DIR)/src
+BUILD_DIR ?= $(ROOT_DIR)/public
 
 # Target files
 ENV_FILE ?= .env
-EPHEMERAL_ARCHIVES ?=
-GENERATED_ARCHIVES ?=
+EPHEMERAL_ARCHIVES ?= \
+	$(BUILD_DIR)
+GENERATED_ARCHIVES ?= \
+	$(ROOT_DIR)/node_modules
 
 # Behavior setup
 PROJECT_NAME ?= $(shell basename $(ROOT_DIR) | tr a-z A-Z)
@@ -27,6 +31,7 @@ PROJECT_NAME ?= $(shell basename $(ROOT_DIR) | tr a-z A-Z)
 # Executables definition
 GIT ?= git
 REMOVE ?= rm --force --recursive
+NPM ?= npm
 
 
 %: # Treat unrecognized targets
@@ -42,6 +47,7 @@ prepare:: ## Inicialize virtual environment
 
 init:: veryclean prepare $(REQUIREMENTS_TXT) ## Configure development environment
 	$(GIT) submodule update --init --recursive
+	$(NPM) install
 
 up:: build execute ## Build and execute service
 
@@ -54,6 +60,7 @@ setup:: clean compile ## Process source code into an executable program
 compile:: ## Treat file generation
 
 run:: ## Launch application locally
+	$(NPM) start
 
 finish:: ## Stop application execution
 

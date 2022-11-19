@@ -1,0 +1,26 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "A front-end based project template repository",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "http-server --port 3000 -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/generic-tree/web-app.git"
+  },
+  "keywords": [
+    "web",
+    "app"
+  ],
+  "author": "Arthur Henrique <Arthur.Henrique.Della.Fraga@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/generic-tree/web-app/issues"
+  },
+  "homepage": "https://github.com/generic-tree/web-app#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
