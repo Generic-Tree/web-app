@@ -24,9 +24,15 @@ GENERATED_ARCHIVES ?=
 
 # Behavior setup
 PROJECT_NAME ?= $(shell basename $(ROOT_DIR) | tr a-z A-Z)
+HOST ?= localhost
+PORT ?= 3000
+URL ?= http://$(HOST):$(PORT)
 
 # Executables definition
+BROWSER ?= google-chrome --incognito
+CURL ?= curl --silent --fail
 GIT ?= git
+NPX ?= npx
 REMOVE ?= rm --force --recursive
 
 
@@ -62,14 +68,17 @@ execute:: setup run ## Setup and run application
 setup:: finish clean ## Process source code into an executable program
 
 run:: ## Launch application locally
+	$(NPX) http-server $(SOURCE_DIR) --port $(PORT)
 
 finish:: ## Stop application execution
 
 status:: ## Present service running status
 
 ping:: ## Verify service reachability
+	@$(CURL) --head $(URL) || echo "'$(PROJECT_NAME)' is inaccessible"
 
 browse:: ## Access service via browser
+	$(BROWSER) $(URL)
 
 test:: ## Verify application's behavior requirements completeness
 
