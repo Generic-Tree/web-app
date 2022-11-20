@@ -1,0 +1,61 @@
+
+
+$primary-color-light: var(--primary);
+$secondary-color-light: var(--secondary);
+$text-color-light: #666;
+
+$primary-color-dark: #252525;
+$secondary-color-dark: #252525;
+$text-color-dark: #999;
+
+
+:root {
+  --primary: black;
+  --ultimate: white;
+  --secondary: #666;
+  --penult: #f3f3f3;
+  --emphasis: #4d90fe;
+
+  color-scheme: light dark;
+}
+
+.dark-theme {
+    --primary: white;
+    --ultimate: #333;
+    --secondary: #f3f3f3;
+    --penult: #666;
+    --logo: url("../img/google-dark.png");
+}
+
+
+$themes: (
+        light: (
+                logo: url("../img/google-light.png"),
+                bg: $primary-color-light,£
+                text: $text-color-light,
+        ),
+        dark: (
+                logo: url("../img/google-dark.png"),
+                bg: $primary-color-dark,
+                text: $text-color-dark,
+        ),
+);
+
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    &.#{$theme}-theme {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

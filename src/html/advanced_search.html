@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="color-scheme" content="dark light">
+
+        <title>Advanced Search</title>
+
+        <link rel="stylesheet" href="css/style.css">
+        <script type="application/javascript" src="index.js" defer></script>
+    </head>
+    <body>
+        <div class="header">
+            <ul class="navbar">
+                <li><a href="/index.html">Back</a></li>
+            </ul>
+            <input class="toggle" type="checkbox" id="theme-switcher">
+        </div>
+
+        <div class="logo">
+            <img src="img/google-light.png" id="logo">
+        </div>
+
+        <form action="https://google.com/search">
+
+            <!-- Fields as on Google Advanced Search-->
+            <div class="as-block">
+                <div class="as-row">
+                    <div class="as-col1">
+                        <div class="as-label"><label for="xX4UFf">all these words:</label></div>
+                    </div>
+                    <div class="as-col2">
+                        <input autofocus="autofocus" class="textinput" id="xX4UFf" name="as_q" type="text" value="">
+                    </div>
+                </div>
+
+                <div class="as-row">
+                    <div class="as-col1">
+                        <div class="as-label"><label for="CwYCWc">this exact word or phrase:</label></div>
+                    </div>
+                    <div class="as-col2">
+                            <input class="textinput" id="CwYCWc" name="as_epq" type="text" value="">
+                    </div>
+                </div>
+
+                <div class="as-row">
+                    <div class="as-col1">
+                        <div class="as-label"><label for="mSoczb">any of these words:</label></div>
+                    </div>
+                    <div class="as-col2">
+                        <input class="textinput" id="mSoczb" name="as_oq" type="text" value="">
+                    </div>
+                </div>
+
+                <div class="as-row">
+                    <div class="as-col1">
+                        <div class="as-label"><label for="t2dX1c">none of these words:</label></div>
+                    </div>
+                    <div class="as-col2">
+                        <input class="textinput" id="t2dX1c" name="as_eq" type="text" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <input class="jfk-button jfk-button-action" type="submit" value="Advanced Search">
+            </div>
+        </form>
+    </body>
+</html>

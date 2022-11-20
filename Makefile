@@ -16,22 +16,29 @@ GNUMAKEFLAGS += --no-print-directory
 # Path record
 ROOT_DIR ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SOURCE_DIR ?= $(ROOT_DIR)/src
-BUILD_DIR ?= $(ROOT_DIR)/public
+BUILD_DIR ?= $(ROOT_DIR)/build
 
 # Target files
 ENV_FILE ?= .env
-EPHEMERAL_ARCHIVES ?= \
-	$(BUILD_DIR)
+EPHEMERAL_ARCHIVES ?=
 GENERATED_ARCHIVES ?= \
+	$(BUILD_DIR) \
 	$(ROOT_DIR)/node_modules
 
 # Behavior setup
 PROJECT_NAME ?= $(shell basename $(ROOT_DIR) | tr a-z A-Z)
+HOST ?= localhost
+PORT ?= 3000
+URL ?= http://$(HOST):$(PORT)
 
 # Executables definition
+CP ?= cp --force --recursive
 GIT ?= git
 REMOVE ?= rm --force --recursive
 NPM ?= npm
+NPX ?= $(NPM) exec
+SASS ?= $(NPX) sass
+HTTP_SERVER ?= $(NPX) http-server
 
 
 %: # Treat unrecognized targets
@@ -51,22 +58,33 @@ init:: veryclean prepare $(REQUIREMENTS_TXT) ## Configure development environmen
 
 up:: build execute ## Build and execute service
 
-build:: clean ## Build service running environment
+build:: clean $(SOURCE_DIR) ## Build service running environment
+	$(CP) $(SOURCE_DIR) $(BUILD_DIR)/
+	$(SASS) --update $(SOURCE_DIR)/scss:$(BUILD_DIR)/css
+
+watch:: ## TODO: Treat file generation continuosly
+	while true; do \
+		watch --no-title --chgexit ls -lR ${SOURCE_DIR} && ${MAKE} build; \
+	done;
 
 execute:: setup run ## Setup and run application
 
-setup:: clean compile ## Process source code into an executable program
+setup:: compile ## Process source code into an executable program
 
 compile:: ## Treat file generation
 
 run:: ## Launch application locally
-	$(NPM) start
+	$(HTTP_SERVER) $(BUILD_DIR) --port $(PORT)
 
 finish:: ## Stop application execution
 
 status:: ## Present service running status
 
 ping:: ## Verify service reachability
+	curl $(URL)  #TODO: complement
+
+open:: ## Reach service via browser
+	google-chrome --incognito $(URL)
 
 test:: ## Verify application's behavior requirements completeness
 
@@ -85,4 +103,4 @@ veryclean:: clean ## Delete all generated files
 
 .EXPORT_ALL_VARIABLES:
 .ONESHELL:
-.PHONY: help prepare init up build execute setup compile run finish status ping test release publish deploy clean veryclean
+.PHONY: help prepare init up build watch execute setup compile run finish status ping test release publish deploy clean veryclean

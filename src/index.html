@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="color-scheme" content="dark light">
+
+        <title>Search</title>
+
+        <link rel='icon' type='image/x-icon' href='favicon.ico'/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <script type="application/javascript" src="index.js" defer></script>
+    </head>
+    <body>
+        <div class="header">
+            <ul class="navbar">
+                <span>Harvard CS50's Web Programming with Python and JavaScript</span>
+                <li><a href="html/advanced_search.html">Advanced Search</a></li>
+                <li><a href="html/image_search.html">Image Search</a></li>
+            </ul>
+            <input class="toggle" type="checkbox" id="theme-switcher">
+        </div>
+
+        <div class="logo">
+            <img src="img/google-light.png" id="logo">
+        </div>
+
+        <form action="https://google.com/search">
+            <div class="searchbar">
+                <i class="material-icons">search</i>
+                <input autofocus="autofocus" name="q" type="text" value="">
+            </div>
+
+            <div class="actions">
+                <input class="jfk-button jfk-button-action" type="submit" value="Google Search">
+                <button class="jfk-button jfk-button-action" type="submit" name="btnI" value="1">I'm Feeling Lucky</button>
+            </div>
+        </form>
+    </body>
+</html>
